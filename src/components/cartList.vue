@@ -22,6 +22,7 @@ export default {
       counter: 0,
       cart: [],
       price: 0,
+      i: 0
     }
   },
   methods:{
@@ -29,11 +30,29 @@ export default {
     this.counter = sessionStorage.getItem(`id: ${this.product.id}`)
       sessionStorage.removeItem(`id: ${this.product.id}`)
       this.$el.remove()
+      if(this.counter > 0){
+        this.$emit('req',{
+        id: this.cart[0].id,
+        counter: this.counter,
+        price: this.price
+      })
+      }else{
+      return
+      }
     },
     incrementV(){
       this.counter ++
       this.price += this.product.price
       sessionStorage.setItem(`id: ${this.product.id}`, this.counter)
+      if(this.counter > 0){
+        this.$emit('req',{
+        id: this.cart[0].id,
+        counter: this.counter,
+        price: this.price
+      })
+      }else{
+      return
+      }
     },
     decrementV(){
       if(sessionStorage.getItem(`id: ${this.product.id}`) > 1){
@@ -45,19 +64,37 @@ export default {
         this.counter = 1
         sessionStorage.setItem(`id: ${this.product.id}`, this.counter)
       }
+      if(this.counter > 0){
+        this.$emit('req',{
+        id: this.cart[0].id,
+        counter: this.counter,
+        price: this.price
+      })
+      }else{
+      return
+      }
     },
     resetV(){
       this.counter = 0
       sessionStorage.setItem(`id: ${this.product.id}`, this.counter)
-    }
+    },
   },
-  created(){
+    created(){
     this.counter = sessionStorage.getItem(`id: ${this.product.id}`)
     if(sessionStorage.getItem(`id: ${this.product.id}`)){
       this.cart.push(this.product)
     }
     for(let i = 0;i < sessionStorage.getItem(`id: ${this.product.id}`); i++){
       this.price += this.product.price
+    }
+    if(this.counter > 0){ 
+        this.$emit('req',{
+        id: this.cart[0].id,
+        counter: this.counter,
+        price: this.price
+      })
+    }else{
+      return
     }
   },
 }
