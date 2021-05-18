@@ -1,6 +1,5 @@
 <template>
   <div class="cart" >
-      
       <a class="a-cart" v-for="technics in cart" :key="technics.title">{{technics.title}}</a>
       <img class="img-cart"  v-for="technics in cart" :key="technics.img" :src="technics.img">
       <div class="counter">
@@ -22,7 +21,7 @@ export default {
     return{
       counter: 0,
       cart: [],
-      price: 0
+      price: 0,
     }
   },
   methods:{
