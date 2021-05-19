@@ -38,8 +38,8 @@ export default {
       alert(JSON.stringify({name: this.name,sub_name: this.sub_name,address: this.address,cart: this.allCartProduct}))
     },
   send(data){
-      for(let i = 0; this.allCartProduct.length; i++){
-        if(this.allCartProduct[i] == data){
+      for(let i = 0; i < this.allCartProduct.length; i++){
+        if(JSON.stringify(this.allCartProduct[i]) == JSON.stringify(data)){
           this.allCartProduct[i] = data
         }else{
           this.allCartProduct.push(data)
